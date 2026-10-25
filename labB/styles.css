@@ -1,25 +1,230 @@
-  * { box-sizing: border-box; }
-body { margin: 0; background: #f3f7f4; color: #20332b; font: 16px/1.5 system-ui, sans-serif; }
-main { max-width: 760px; margin: 48px auto; padding: 32px; background: white; border: 1px solid #dce6df; border-radius: 18px; }
-header p { color: #46705a; font-size: 13px; letter-spacing: .12em; }
-h1 { margin: 0 0 28px; font-size: 34px; }
-h2 { font-size: 20px; }
-label { display: block; margin: 12px 0 6px; font-weight: 600; }
-input, button { font: inherit; }
-input { width: 100%; padding: 11px 12px; border: 1px solid #aebfb4; border-radius: 7px; }
-button { cursor: pointer; border: 0; border-radius: 7px; padding: 10px 16px; background: #256447; color: white; }
-button:hover { filter: brightness(.94); }
-:focus-visible { outline: 3px solid #66a885; outline-offset: 3px; }
-#counter, small, .empty { color: #64736a; }
-.task { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid #e1e9e4; }
-.task-content { flex: 1; min-width: 0; }
-.task-content input + input { margin-top: 8px; }
-.task-edit { display: block; width: 100%; text-align: left; padding: 4px; background: transparent; color: inherit; overflow-wrap: anywhere; }
-small { display: block; margin-top: 5px; }
-.remove { background: #f9e9e7; color: #9b302b; }
-mark { background: #ffe38b; color: #20332b; }
-section { margin-top: 28px; }
-form button { margin-top: 16px; }
-.error { display: block; color: #a32727; margin-top: 6px; }
-#message { min-height: 24px; }
-@media (max-width: 600px) { main { margin: 16px; padding: 20px; } }
+* {
+  /* codex: Podana szerokość elementu obejmuje też padding i obramowanie,
+     więc np. input o szerokości 100% nie wystaje poza rodzica. */
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eeeae3;
+  color: #292722;
+  font: 16px/1.6 system-ui, sans-serif;
+}
+
+main {
+  max-width: 760px;
+  margin: 56px auto;
+  padding: 40px;
+  background: #fffcf7;
+  border: 1px solid #d8d1c5;
+  border-top: 6px solid #b84a22;
+  border-radius: 4px;
+  box-shadow: 0 12px 36px #2927220d;
+}
+
+header p {
+  margin: 0 0 12px;
+  color: #a13e1b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+
+h1 {
+  margin: 0 0 32px;
+  /* codex: Rozmiar zależy od szerokości okna (6vw), ale pozostaje
+     w granicach od 30px do 42px. */
+  font-size: clamp(30px, 6vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -.04em;
+}
+
+h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+
+label {
+  display: block;
+  margin: 16px 0 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input, button {
+  font: inherit;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  background: #fffefa;
+  color: #292722;
+  border: 1px solid #c5bdae;
+  border-radius: 4px;
+}
+
+input::placeholder {
+  color: #777064;
+  opacity: 1;
+}
+
+input:hover {
+  border-color: #948777;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 11px 20px;
+  background: #b84a22;
+  color: white;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #963918;
+}
+
+/* codex: Wyróżnia aktywny element np. podczas nawigacji klawiszem Tab.
+   Obrys nie zmienia wymiarów elementu, a offset odsuwa go od krawędzi. */
+:focus-visible {
+  outline: 3px solid #b84a22;
+  outline-offset: 3px;
+}
+
+#counter, small, .empty {
+  color: #70685c;
+}
+
+#counter {
+  margin: 14px 0 20px;
+  font-size: 13px;
+}
+
+#tasks {
+  display: grid;
+  gap: 10px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f4efe6;
+  border: 1px solid #e1d9cb;
+  border-left: 3px solid #b8a58b;
+  border-radius: 4px;
+}
+
+.task-content {
+  /* codex: Treść zajmuje wolne miejsce obok przycisku Usuń.
+     min-width: 0 pozwala jej zwężać się mimo długiego tekstu. */
+  flex: 1;
+  min-width: 0;
+}
+
+/* codex: Znak + wybiera input bezpośrednio po innym inpucie,
+   dodając odstęp między treścią a terminem w trybie edycji. */
+.task-content input + input {
+  margin-top: 8px;
+}
+
+.task-edit {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 4px;
+  background: transparent;
+  color: inherit;
+  /* codex: Pozwala łamać także długie słowa lub linki bez spacji,
+     aby nie rozpychały karty zadania. */
+  overflow-wrap: anywhere;
+}
+
+.task-edit:hover {
+  background: #eae2d5;
+}
+
+small {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.remove {
+  /* codex: Flexbox nie zwęża przycisku, gdy treść zadania jest długa. */
+  flex-shrink: 0;
+  padding: 7px 12px;
+  background: transparent;
+  border-color: #cbb9aa;
+  color: #963918;
+  font-size: 13px;
+}
+
+.remove:hover {
+  background: #f2ded3;
+  border-color: #b84a22;
+}
+
+mark {
+  padding: 0 2px;
+  background: #f6d28b;
+  color: #292722;
+  border-radius: 2px;
+}
+
+.empty {
+  margin: 0;
+  padding: 24px 16px;
+  border: 1px dashed #c5bdae;
+  border-radius: 4px;
+  text-align: center;
+}
+
+section {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid #d8d1c5;
+}
+
+form button {
+  margin-top: 20px;
+}
+
+.error {
+  display: block;
+  color: #a12d20;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+#message {
+  /* codex: Rezerwuje miejsce na komunikat także wtedy, gdy jest pusty,
+     dzięki czemu pojawienie się tekstu nie przesuwa dołu strony. */
+  min-height: 24px;
+  margin: 20px 0 0;
+  color: #70685c;
+  font-size: 13px;
+}
+
+/* codex: Na ekranach o szerokości do 600px zmniejszamy odstępy,
+   a przycisk dodawania rozciągamy na całą szerokość formularza. */
+@media (max-width: 600px) {
+  main {
+    margin: 20px 12px;
+    padding: 24px 18px;
+  }
+  .task {
+    gap: 10px;
+    padding: 12px;
+  }
+  form button {
+    width: 100%;
+  }
+}
