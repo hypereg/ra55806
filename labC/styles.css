@@ -1,0 +1,248 @@
+/* Style aplikacji przygotowane przy pomocy Codex.
+   Trudniejsze fragmenty oznaczono komentarzami „Codex”. */
+
+/* Codex: padding i obramowanie wliczają się w podaną szerokość
+   oraz wysokość elementu, co ułatwia dopasowanie planszy i puzzli. */
+* {
+  box-sizing: border-box;
+}
+:root {
+  font-family: system-ui, sans-serif;
+  color: #183338;
+  background: #edf3f0;
+}
+body {
+  margin: 0;
+}
+main {
+  max-width: 1140px;
+  margin: auto;
+  padding: 36px 24px;
+}
+h1 {
+  /* Codex: clamp skaluje tekst wraz z szerokością okna (5vw),
+     zachowując minimum 30px i maksimum 46px. */
+  font-size: clamp(30px, 5vw, 46px);
+  letter-spacing: -1.5px;
+  margin: 8px 0;
+}
+h2 {
+  font-size: 21px;
+  margin: 0;
+}
+h3 {
+  font-size: 15px;
+}
+p {
+  line-height: 1.6;
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #427568;
+}
+header {
+  margin-bottom: 30px;
+}
+.panel {
+  background: white;
+  padding: 24px;
+  border: 1px solid #d5e1db;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.section-head span {
+  font-size: 13px;
+  color: #58706a;
+}
+/* Codex: pierwsza kolumna może się zwężać i ma maksymalnie 480px.
+   Druga kolumna zajmuje pozostałe miejsce dzięki jednostce 1fr. */
+.map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) 1fr;
+  gap: 30px;
+}
+#map {
+  width: 100%;
+  /* Codex: proporcja 1:1 utrzymuje kwadrat mapy przy zmianie szerokości. */
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: #e0e8df;
+  z-index: 0;
+}
+.controls {
+  padding: 12px 0;
+}
+.controls p {
+  font-size: 14px;
+  color: #58706a;
+  margin: 10px 0 24px;
+}
+button,
+#download {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 7px;
+  padding: 11px 18px;
+  border: 1px solid #256353;
+  background: #256353;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(0.93);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.secondary {
+  background: white;
+  color: #256353;
+}
+/* Codex: wyróżniamy aktywny element podczas nawigacji klawiaturą. */
+:focus-visible {
+  outline: 3px solid #e3a342;
+  outline-offset: 3px;
+}
+#message {
+  padding: 14px 18px;
+  background: #dcece4;
+  border-radius: 8px;
+}
+.game-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+/* Codex: CSS Grid tworzy cztery równe kolumny i cztery równe wiersze.
+   Kwadratowy kontener daje 16 kwadratowych pól na puzzle. */
+.board,
+.tray {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  aspect-ratio: 1;
+  width: 100%;
+  background: #ecf1ef;
+  border: 2px dashed #a8beb4;
+}
+.tray {
+  gap: 8px;
+  padding: 10px;
+  align-content: start;
+}
+.slot {
+  /* Codex: zerowe minima pozwalają komórkom siatki zmniejszać się
+     poniżej naturalnego rozmiaru canvas, także na telefonach. */
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #ccd9d2;
+  position: relative;
+}
+/* Codex: pseudoelement pokazuje numer z data-label tylko w pustym polu.
+   position: relative w .slot wyznacza obszar dla position: absolute;
+   inset: 0 i place-items: center centrują numer w całym polu. */
+.slot:empty::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #a1b3aa;
+  pointer-events: none;
+  font-size: 12px;
+}
+.piece {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  position: relative;
+  cursor: grab;
+  background: none;
+}
+.piece canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Codex: zdarzenia myszy trafiają do przycisku puzzla zamiast do canvas. */
+  pointer-events: none;
+}
+.piece.selected {
+  outline: 4px solid #e3a342;
+  z-index: 1;
+}
+.slot.correct {
+  outline: 3px solid #368965;
+  /* Codex: ujemny odstęp rysuje ramkę wewnątrz pola.
+     Outline nie zmienia wymiarów komórki ani układu planszy. */
+  outline-offset: -3px;
+  z-index: 1;
+}
+/* Codex: znak poprawnego ułożenia jest nakładką nad puzzlem (z-index: 2).
+   pointer-events: none pozwala obsługiwać puzzel także pod tym znakiem. */
+.slot.correct::before {
+  content: '✓';
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  z-index: 2;
+  color: white;
+  background: #256353;
+  border-radius: 50%;
+  width: 19px;
+  text-align: center;
+  pointer-events: none;
+}
+/* Codex: JavaScript dodaje tę klasę, gdy przeciągany puzzel
+   znajduje się nad miejscem, w którym można go upuścić. */
+.drag-over {
+  background: #c7dfd0;
+  outline: 3px solid #256353;
+}
+details {
+  margin-top: 22px;
+}
+summary {
+  cursor: pointer;
+}
+#raster {
+  max-width: 100%;
+  height: auto;
+  margin-top: 16px;
+}
+/* Codex: na ekranach do 720px układ przechodzi z dwóch kolumn na jedną.
+   Mapa, przyciski, stół i plansza ustawiają się wtedy jeden pod drugim. */
+@media (max-width: 720px) {
+  main {
+    padding: 22px 12px;
+  }
+  .panel {
+    padding: 16px;
+  }
+  .map-layout,
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+  .section-head {
+    align-items: start;
+    flex-direction: column;
+  }
+  .tray {
+    gap: 5px;
+  }
+}

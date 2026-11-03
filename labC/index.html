@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Adrian Romański (55806) - AI LAB C</title>
+        <link rel="stylesheet" href="vendor/leaflet.css" />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="vendor/leaflet.js" defer></script>
+        <script src="scripts.js" defer></script>
+    </head>
+    <body>
+        <main>
+            <section class="panel" aria-labelledby="map-title">
+                <div class="section-head">
+                    <h2 id="map-title">1. Wybierz mapę</h2>
+                </div>
+                <div class="map-layout">
+                    <div id="map" aria-label="Interaktywna mapa"></div>
+                    <div class="controls">
+                        <button id="locate" type="button">
+                            Moja lokalizacja
+                        </button>
+                        <p id="coordinates" role="status"></p>
+                        <button
+                            id="notifications"
+                            class="secondary"
+                            type="button"
+                        >
+                            Włącz powiadomienia
+                        </button>
+                        <p id="permission" role="status"></p>
+                        <button id="capture" type="button">Pobierz mapę</button>
+                        <a id="download" hidden download="mapa.png"
+                            >Zapisz mapę jako PNG</a
+                        >
+                    </div>
+                </div>
+            </section>
+            <p id="message" role="status" aria-live="polite">
+                Zacznij od wybrania mapy, a następnie kliknij „Pobierz mapę”.
+            </p>
+            <section class="panel" aria-labelledby="puzzle-title">
+                <div class="section-head">
+                    <h2 id="puzzle-title">2. Ułóż puzzle</h2>
+                    <strong id="progress">0 / 16 na miejscu</strong>
+                </div>
+                <div class="game-layout">
+                    <div>
+                        <h3>Stół z puzzlami</h3>
+                        <div
+                            id="tray"
+                            class="tray"
+                            aria-label="Stół z rozsypanymi puzzlami"
+                        ></div>
+                    </div>
+                    <div>
+                        <h3>Plansza 4 × 4</h3>
+                        <div
+                            id="board"
+                            class="board"
+                            aria-label="Plansza do układania puzzli"
+                        ></div>
+                    </div>
+                </div>
+                <button id="shuffle" class="secondary" type="button" disabled>
+                    Wymieszaj ponownie
+                </button>
+                <details>
+                    <summary>Mapa rastrowa w canvas</summary>
+                    <canvas
+                        id="raster"
+                        width="480"
+                        height="480"
+                        aria-label="Zapisany fragment mapy"
+                    ></canvas>
+                    <p>© OpenStreetMap contributors</p>
+                </details>
+            </section>
+        </main>
+    </body>
+</html>
