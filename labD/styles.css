@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap');
+/* Codex: wspólne kolory w zmiennych CSS ułatwiają utrzymanie spójnego wyglądu. */
+:root {
+  color-scheme: light;
+  --ink: #183b38;
+  --muted: #627570;
+  --line: #d6dfd7;
+  --paper: #f3f5ed;
+  --accent: #d7ef72;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+}
+.container {
+  max-width: 1120px;
+  padding: 32px 40px 20px;
+  margin: auto;
+}
+header,
+footer,
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+header {
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
+a {
+  color: inherit;
+}
+.brand {
+  font:
+    800 28px 'Manrope',
+    sans-serif;
+  text-decoration: none;
+  letter-spacing: -1px;
+}
+.brand span {
+  color: #89a53b;
+  margin-left: 4px;
+  font-size: 16px;
+}
+.lab,
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.lab {
+  color: var(--muted);
+}
+/* Codex: gradient radialny tworzy delikatne tło sekcji wprowadzającej. */
+.intro {
+  padding: 45px 0 22px;
+  background: radial-gradient(ellipse at 85% 40%, #dfebbc 0, transparent 46%);
+}
+.eyebrow {
+  margin: 0 0 14px;
+}
+/* Codex: clamp dopasowuje wielkość nagłówka do szerokości ekranu w zadanych granicach. */
+h1 {
+  font:
+    800 clamp(36px, 5.2vw, 60px) / 1.08 'Manrope',
+    sans-serif;
+  letter-spacing: -2.5px;
+  margin: 0 0 20px;
+}
+.intro > p:last-child {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 15px;
+}
+form {
+  max-width: 690px;
+}
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.search {
+  display: flex;
+  background: white;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 5px 18px #183b3805;
+}
+input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: transparent;
+}
+button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink);
+  color: white;
+  padding: 14px 24px;
+  font:
+    700 14px 'DM Sans',
+    sans-serif;
+  cursor: pointer;
+}
+button span {
+  margin-left: 22px;
+  color: var(--accent);
+}
+button:hover {
+  background: #28534a;
+}
+button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+:focus-visible {
+  outline: 3px solid #7b9826;
+  outline-offset: 3px;
+}
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 9px 0;
+}
+#status {
+  min-height: 20px;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 22px 0 16px;
+}
+#status.error {
+  color: #a13b2b;
+}
+.panel {
+  border-radius: 16px;
+  padding: 26px 30px;
+  background: var(--ink);
+  color: #fff;
+}
+h2 {
+  font:
+    700 21px 'Manrope',
+    sans-serif;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+.current .eyebrow {
+  color: var(--accent);
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+.current-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 24px;
+}
+.temperature {
+  font:
+    600 68px 'Manrope',
+    sans-serif;
+  letter-spacing: -4px;
+}
+.condition {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.condition img {
+  width: 80px;
+  height: 80px;
+}
+.description {
+  text-transform: capitalize;
+  margin: 0;
+}
+.observed {
+  font-size: 12px;
+  color: #bed0c7;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.metric span {
+  display: block;
+  color: #bed0c7;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.metric strong {
+  font-weight: 500;
+  font-size: 19px;
+}
+.section-title {
+  margin: 28px 0 16px;
+}
+.section-title > span {
+  font-size: 12px;
+  color: var(--muted);
+}
+/* Codex: auto-fit i minmax dopasowują liczbę kolumn prognozy do dostępnego miejsca. */
+.days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 12px;
+}
+.day {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 17px 14px;
+  background: #ffffff80;
+}
+.day h3 {
+  font-size: 14px;
+  margin: 0 0 3px;
+}
+.day .date {
+  color: var(--muted);
+  font-size: 12px;
+}
+.day img {
+  display: block;
+  width: 66px;
+  height: 66px;
+  margin: 5px auto;
+}
+.range {
+  font-size: 21px;
+  font-weight: 700;
+}
+.range small {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.day p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+.day details {
+  font-size: 11px;
+  color: var(--muted);
+}
+.day summary {
+  cursor: pointer;
+  padding: 6px 0;
+}
+.hours {
+  list-style: none;
+  padding: 0;
+  line-height: 1.9;
+}
+.hours li {
+  border-top: 1px solid var(--line);
+}
+.placeholder {
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 1.6;
+}
+footer {
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+  padding: 20px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+footer a {
+  text-decoration: none;
+}
+/* Codex: media queries zmieniają układ kart i panelu pogody na mniejszych ekranach. */
+@media (max-width: 760px) {
+  .container {
+    padding: 24px;
+  }
+  .lab {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .current-grid {
+    grid-template-columns: 1fr;
+  }
+  .metrics {
+    border-top: 1px solid #ffffff30;
+    padding-top: 20px;
+  }
+  .intro {
+    padding-top: 32px;
+  }
+}
+@media (max-width: 420px) {
+  .container {
+    padding: 20px 16px;
+  }
+  .brand {
+    font-size: 24px;
+  }
+  .lab {
+    max-width: 120px;
+    text-align: right;
+    line-height: 1.6;
+  }
+  h1 {
+    letter-spacing: -1.5px;
+  }
+  .panel {
+    padding: 22px;
+  }
+  button {
+    padding: 14px;
+  }
+  button span {
+    margin-left: 6px;
+  }
+  input {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .section-title {
+    align-items: baseline;
+  }
+  h2 {
+    font-size: 19px;
+  }
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .temperature {
+    font-size: 60px;
+  }
+}
